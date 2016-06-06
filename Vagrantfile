@@ -97,4 +97,6 @@ Vagrant.configure(2) do |config|
 
   #forward x11 like a boss
   config.ssh.forward_x11 = true
+  #unbreak ssh
+  config.ssh.insert_key = false
 end

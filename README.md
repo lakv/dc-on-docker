@@ -1,8 +1,5 @@
 # DC on Docker with [OpenSwitch](http://www.openswitch.net)
-
-[![Build Status](https://travis-ci.org/keinohguchi/dc-on-docker.svg)](https://travis-ci.org/keinohguchi/dc-on-docker)
-[![Buildtime trend](https://buildtimetrend.herokuapp.com/badge/keinohguchi/dc-on-docker/latest)](https://buildtimetrend.herokuapp.com/dashboard/keinohguchi/dc-on-docker/)
-[![Stories in Ready](https://badge.waffle.io/keinohguchi/dc-on-docker.png?label=ready&title=ready)](https://waffle.io/keinohguchi/dc-on-docker)
+### Based on the work of [keinohguchi](https://github.com/keinohguchi/dc-on-docker) and [davrodpin](https://github.com/davrodpin/dc-on-docker) with some usability tweaks and inexplicable stability improvements.
 
 Creating your own data-center (DC) on your laptop with Ansible and
 Docker-Compose in a snap!
@@ -15,7 +12,8 @@ on your laptop with [vagrant](http://vagrantup.com),
 
 ## Requirements
 
-Ansible 2.1 and above, because OpenSwitch ansible roles, e.g. [ops switch role](http://github.com/keinohguchi/ops-switch-role), depends on Ansible 2.1 modules.
+- Ansible 2.1 and above, because OpenSwitch ansible roles, e.g. [ops switch role](http://github.com/keinohguchi/ops-switch-role), depends on Ansible 2.1 modules.
+- Vagrant from www.vagrantup.com, not your distro's repos.
 
 ### Using Vagrant
 
@@ -51,7 +49,7 @@ Download and install Virtualbox 5.0.16 from [virtualbox.org](https://www.virtual
 
 Download and install Vagrant 1.8.1 from [vagrantup.com](https://releases.hashicorp.com/vagrant/1.8.1);
 
-Optionary, you can install required vagrant plugins:
+Optionally, you can install required vagrant plugins:
 
 ```
 $ vagrant plugin install vagrant-proxyconf vagrant-vbguest
@@ -113,11 +111,6 @@ stuff, with additional tweaks for OpenSwitch interfaces:
 
 #### Smaller set of topology
 
-You can also create a smaller topology, say single docker topology,
-primaliry for the testing purpose, as demonstrated on the
-[asciinema](https://asciinema.org/a/44984).  Here is the example
-how to create a single docker instance topology:
-
 ```
   $ ansible-playbook --limit fabrics:docker --extra-vars "docker_compose_file=docker-compose1.yaml docker_network_script=docker-network1.sh" utils/setup.yaml
 ```
@@ -168,8 +161,6 @@ TDD philosophy here, too.
 ```
   $ ansible-playbook tests/test_bridge.yml
 ```
-
-Here is the [asciicast](https://asciinema.org/a/44717), as test in action.
 
 ## Tear down
 
