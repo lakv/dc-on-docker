@@ -56,3 +56,11 @@
 
 - include: bgp.yaml
   tags: [ bgp ]
+
+- name: setup management network
+  hosts: docker
+  gather_facts: no
+  tasks:
+  - name: run script
+    script: >
+      "{{docker_mgmt_network_script}}"

@@ -14,3 +14,6 @@ docker_network_done_file: /tmp/docker_network.done
 
 # Docker Server File (Undefined Previously)
 docker_server_file: Dockerfile
+
+# Docker network shell script for management network.
+docker_mgmt_network_script: mgmt-net.sh

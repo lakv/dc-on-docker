@@ -13,7 +13,7 @@ create_fabric_networks()
 {
 	for i in {0..2}; do
 		docker network inspect ${net_prefix}${i} > /dev/null
-		if [ $? != 1 ]; then
+		if [ $? != 0 ]; then
 			docker network create --internal \
 				--subnet=172.16.${i}.0/24 \
 				--gateway=172.16.${i}.254 ${net_prefix}${i}
@@ -27,7 +27,7 @@ create_spine_networks()
 	for j in {1..2}; do
 		for i in {1..3}; do
 			docker network inspect ${net_prefix}${j}${i} > /dev/null
-			if [ $? != 1 ]; then
+			if [ $? != 0 ]; then
 				docker network create --internal \
 					--subnet=172.16.${j}${i}.0/24 \
 					--gateway=172.16.${j}${i}.254 \
@@ -42,7 +42,7 @@ create_leaf_networks()
 {
 	for i in 30 40 50; do
 		docker network inspect ${net_prefix}${i} > /dev/null
-		if [ $? != 1 ]; then
+		if [ $? != 0 ]; then
 			docker network create --internal \
 				--subnet=172.16.${i}.0/24 \
 				--gateway=172.16.${i}.254 ${net_prefix}${i}
@@ -88,34 +88,6 @@ connect_leaf_switches()
 	done
 }
 
-# create a management network
-create_management_network()
-{
-	net_suffix=777
-	net=${net_prefix}${net_suffix}
-	docker network inspect ${net} > /dev/null
-	if [ $? = 1 ]; then
-		docker network create --internal \
-			--subnet=10.10.10.0/24 \
-			--gateway=10.10.10.254 ${net}
-	fi
-}
-
-# connect all nodes to the management network
-connect_to_management_network()
-{
-	net_suffix=777
-	net=${net_prefix}${net_suffix}
-	for node in `docker ps | tail -n+2 | awk '{print $12}'`; do
-		docker inspect --format="{{ .NetworkSettings.Networks }}" ${node} | grep ${net}
-		if [ $? = 1 ]; then
-			docker network connect ${net} ${node}
-		fi
-	done
-}
-
-
-
 # main
 create_fabric_networks
 create_spine_networks
@@ -124,5 +96,3 @@ connect_fabric_switches
 connect_spine_switches
 connect_leaf_switches
 
-create_management_network
-connect_to_management_network
