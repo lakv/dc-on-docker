@@ -43,3 +43,16 @@ services:
     networks:
       - default
     command: /sbin/init
+  spine3:
+    image: openswitch/local_build
+    container_name: "spine3"
+    privileged: true
+    ports:
+      - "16022:22"
+    volumes:
+      - /tmp:/tmp
+      - /dev/log:/dev/log
+      - /sys/fs/cgroup:/sys/fs/cgroup
+    networks:
+      - default
+    command: /sbin/init
