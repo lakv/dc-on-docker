@@ -46,6 +46,20 @@ services:
     networks:
       - default
     command: /sbin/init
+  spine3:
+    image: openswitch/local_build
+    container_name: "spine3"
+    privileged: true
+    ports:
+      - "16022:22"
+      - "4436:443"
+    volumes:
+      - /tmp:/tmp
+      - /dev/log:/dev/log
+      - /sys/fs/cgroup:/sys/fs/cgroup
+    networks:
+      - default
+    command: /sbin/init
   leaf1:
     image: openswitch/local_build
     container_name: "leaf1"
@@ -81,6 +95,20 @@ services:
     ports:
       - "15022:22"
       - "4435:443"
+    volumes:
+      - /tmp:/tmp
+      - /dev/log:/dev/log
+      - /sys/fs/cgroup:/sys/fs/cgroup
+    networks:
+      - default
+    command: /sbin/init
+  leaf4:
+    image: openswitch/local_build
+    container_name: "leaf4"
+    privileged: true
+    ports:
+      - "17022:22"
+      - "4437:443"
     volumes:
       - /tmp:/tmp
       - /dev/log:/dev/log
