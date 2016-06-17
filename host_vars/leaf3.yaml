@@ -11,6 +11,8 @@ ops_vrfs:
             remote_as: 65001
           - address: 172.16.23.1
             remote_as: 65002
+          - address: 172.16.50.2
+            remote_as: 65006
 
 ops_ports:
   - name: 1
