@@ -71,6 +71,7 @@ connect_spine_switches()
 			docker network connect ${net_prefix}${i}1 spine${i}
 			docker network connect ${net_prefix}${i}2 spine${i}
 			docker network connect ${net_prefix}${i}3 spine${i}
+                        docker network connect ${net_prefix}${i}4 spine${i}
 		fi
 	done
 }
